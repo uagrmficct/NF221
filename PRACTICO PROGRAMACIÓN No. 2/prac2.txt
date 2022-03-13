@@ -1,0 +1,71 @@
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;assemble and link with: 
+;assemble: -->> nasm -f win64 -o P1.o P1.asm -l P1.lst
+;link:	   -->> gcc -o P1 P1.o
+;run:      -->> P1
+;debugger: -->> x64dbg P1
+;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+;-----------------------------------------
+
+;file: P1.asm (nombre programa)
+;registro:218034121
+;nombres y apellidos: Moises Leonardo Mogiano Gutierrez
+
+extern printf, scanf		
+
+segment .data
+;aqui se declaran variables inicializadas
+	a	dd	-299
+	b	dd	6287908
+	c	dd	218034121
+	d	dd	-87
+		
+segment .bss
+;Block Started by Symbol(BSS) 
+;aqui van las variables declaradas pero sin inicializar
+	
+	y	resd	1
+	
+segment .text 
+
+global main 					
+main:	
+;etiqueta que indica el comienzo del programa principal
+;aqui van las instrucciones
+
+	mov eax,[c]
+	sub eax,97	; (c-97)
+	
+	mov ebx,[a]
+	sub ebx,eax ; a-(c-97)
+	
+	mov ecx,[d]
+	neg ecx 	; (-d)
+	
+	sub ebx,ecx ; a-(c-97)-(-d)
+	mov ecx,ebx ; x=a-(c-97)-(-d)
+	
+;-----------------------------------
+
+	mov edx,49
+	add edx,[d]	; (49+d)
+	
+	add ecx,edx ; x+(49+d)
+	
+	mov eax,[a]
+	add eax,35	; (a+35)
+	
+	sub eax,[b]; (a+35)-b 
+	
+	sub ecx,eax ; x+(49+d) - ((a+35)-b)
+	mov [y],ecx ; y = x+(49+d) - ((a+35)-b)
+	
+	
+	
+	
+ret
+;----------------------------------------
+;..........subrutinas....................	
+
+
+
